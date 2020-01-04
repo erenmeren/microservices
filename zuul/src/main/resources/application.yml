@@ -1,0 +1,32 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: gateway-zuul
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie
+  ignored-services: "*"
+#  prefix: /api
+  routes:
+    person-1:
+      path: /person/**
+      service-id: person
+    address-1:
+      path: /address/**
+      service-id: address
+    aut:
+      path: /auth/**
+      service-id: auth-service
+      strip-prefix: false
+
+ribbon:
+  eager-load:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
